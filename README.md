@@ -1,1 +1,1 @@
-I build this project to learn Supabase, npm, monorepo, IaC (via Pulumi), GitHub Actions, and other tooling.
+I build this project to learn Supabase, npm, monorepo, IaC (via Terraform and Pulumi), GitHub Actions, and other tooling.

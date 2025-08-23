@@ -22,17 +22,20 @@ data "github_repository" "this" {
 # Add resources that configure this existing repo (safe GitOps pattern).
 # Examples you can enable later:
 #
-# resource "github_branch_protection" "main" {
-#   repository_id  = data.github_repository.this.node_id
-#   pattern        = "main"
-#   required_status_checks {
-#     strict   = true
-#     contexts = []
-#   }
-#   enforce_admins                  = true
-#   required_linear_history         = true
-#   require_conversation_resolution = true
-# }
+resource "github_branch_protection" "main" {
+  repository_id = data.github_repository.this.node_id
+  pattern       = "main"
+
+  enforce_admins                  = true
+  required_linear_history         = true
+  require_conversation_resolution = true
+
+  required_pull_request_reviews {
+    required_approving_review_count = 1
+    dismiss_stale_reviews           = true
+    # require_code_owner_reviews    = false
+  }
+}
 
 # resource "github_repository_ruleset" "required_reviews" {
 #   name        = "Require reviews"

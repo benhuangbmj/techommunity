@@ -37,6 +37,16 @@ jobs:
         with:
           terraform_version: 1.6.6
 
+      - name: Use PAT if provided
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          if [ -n "$GH_TOKEN" ]; then
+            echo "Using GH_TOKEN secret for Terraform operations"
+            echo "GITHUB_TOKEN=$GH_TOKEN" >> "$GITHUB_ENV"
+          fi
+
       - name: Terraform Fmt
         working-directory: infra/terraform
         run: terraform fmt -check -recursive

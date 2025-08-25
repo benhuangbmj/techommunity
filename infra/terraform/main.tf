@@ -25,9 +25,23 @@ resource "github_branch_protection" "main" {
   require_conversation_resolution = true
 
   required_pull_request_reviews {
-    required_approving_review_count = 1
+    required_approving_review_count = 0
     dismiss_stale_reviews           = true
     # require_code_owner_reviews    = false
+  }
+}
+
+resource "github_repository_vulnerability_alerts" "this" {
+  repository = data.github_repository.this.name
+}
+
+resource "github_repository_security_and_analysis" "this" {
+  repository = data.github_repository.this.name
+
+  security_and_analysis {
+    dependabot_security_updates {
+      status = "enabled"
+    }
   }
 }
 

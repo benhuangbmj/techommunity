@@ -31,19 +31,21 @@ resource "github_branch_protection" "main" {
   }
 }
 
-resource "github_repository_vulnerability_alerts" "this" {
-  repository = data.github_repository.this.name
+resource "github_repository" "this" {
+  name = "${var.repo_name}"
+
+  vulnerability_alerts   = true
 }
 
-resource "github_repository_security_and_analysis" "this" {
-  repository = data.github_repository.this.name
+# resource "github_repository_security_and_analysis" "this" {
+#   repository = data.github_repository.this.name
 
-  security_and_analysis {
-    dependabot_security_updates {
-      status = "enabled"
-    }
-  }
-}
+#   security_and_analysis {
+#     dependabot_security_updates {
+#       status = "enabled"
+#     }
+#   }
+# }
 
 # resource "github_repository_ruleset" "required_reviews" {
 #   name        = "Require reviews"

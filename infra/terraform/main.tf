@@ -9,19 +9,13 @@ terraform {
 }
 
 provider "github" {
-  # Authentication via GITHUB_TOKEN or personal access token.
-  # The GitHub Actions workflow will supply this automatically.
   owner = var.github_owner
 }
 
-# Reference the existing repository so Terraform can attach configuration
 data "github_repository" "this" {
   full_name = "${var.github_owner}/${var.repo_name}"
 }
 
-# Add resources that configure this existing repo (safe GitOps pattern).
-# Examples you can enable later:
-#
 resource "github_branch_protection" "main" {
   repository_id = data.github_repository.this.node_id
   pattern       = "main"

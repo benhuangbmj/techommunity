@@ -32,9 +32,9 @@ resource "github_branch_protection" "main" {
 }
 
 resource "github_repository" "this" {
-  name = "${var.repo_name}"
+  name = var.repo_name
 
-  vulnerability_alerts   = true
+  vulnerability_alerts = true
 }
 
 # resource "github_repository_security_and_analysis" "this" {

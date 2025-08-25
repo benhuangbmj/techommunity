@@ -55,9 +55,10 @@ jobs:
         working-directory: infra/terraform
         run: |
           if ! terraform state show github_repository.this > /dev/null 2>&1; then
-            terraform import github_repository.this ${{ github.event.repository.name }} \
+            terraform import \
               -var="github_owner=${GITHUB_OWNER}" \
-              -var="repo_name=${REPO_NAME}"
+              -var="repo_name=${REPO_NAME}" \
+              github_repository.this ${{ github.event.repository.name }}              
           else
             echo "Resource github_repository.this is already imported"
           fi

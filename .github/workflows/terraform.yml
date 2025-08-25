@@ -50,6 +50,9 @@ jobs:
         working-directory: infra/terraform
         run: |
           terraform validate
+          
+      - name: Terraform Import
+        run: terraform import github_repository.this ${{ github.event.repository.name }}
 
       - name: Terraform Plan
         if: github.event_name == 'pull_request'

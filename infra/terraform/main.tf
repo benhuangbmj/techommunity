@@ -16,25 +16,31 @@ data "github_repository" "this" {
   full_name = "${var.github_owner}/${var.repo_name}"
 }
 
-# resource "github_branch_protection" "main" {
-#   repository_id = data.github_repository.this.node_id
-#   pattern       = "main"
+resource "github_branch_protection" "main" {
+  repository_id = data.github_repository.this.node_id
+  pattern       = "main"
 
-#   enforce_admins                  = true
-#   required_linear_history         = true
-#   require_conversation_resolution = true
+  enforce_admins                  = false
+  required_linear_history         = true
+  require_conversation_resolution = true
 
-#   required_pull_request_reviews {
-#     required_approving_review_count = 0
-#     dismiss_stale_reviews           = true
-#     # require_code_owner_reviews    = false
-#   }
-# }
+  required_pull_request_reviews {
+    required_approving_review_count = 0
+    dismiss_stale_reviews           = true
+    # require_code_owner_reviews    = false
+  }
+}
 
 resource "github_repository" "this" {
   name = var.repo_name
 
   vulnerability_alerts = true
+}
+
+resource "github_repository_dependabot_security_updates" "this" {
+  repository = var.repo_name
+
+  enabled = true
 }
 
 # resource "github_repository_security_and_analysis" "this" {

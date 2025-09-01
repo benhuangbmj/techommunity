@@ -54,3 +54,6 @@ override.tf.json
 terraform.rc
 plan.txt
 plan.out
+
+# secrets
+/**/secrets
